@@ -24,6 +24,7 @@ export default function LoginPage() {
        * TODO: redirect to the home page
        */
     } catch (error) {
+      // TODO: handle error
       console.log(error)
     } finally {
       setIsSubmitting(false)

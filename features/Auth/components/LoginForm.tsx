@@ -1,4 +1,10 @@
-import { ComponentProps, Dispatch, SetStateAction, useState } from 'react'
+import {
+  ComponentProps,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useState,
+} from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import loginSchema from '@/features/Auth/utils/loginFormSchema'
@@ -6,6 +12,7 @@ import TextInput from '@/components/TextInput'
 import Label from '@/components/Label'
 import Button from '@/components/Buttton'
 import Box from '@/components/Box'
+import { useRouter } from 'next/router'
 
 export interface LoginFormProps extends ComponentProps<'div'> {
   onSubmitForm: (
@@ -15,6 +22,8 @@ export interface LoginFormProps extends ComponentProps<'div'> {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
+  const router = useRouter()
+
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { register, handleSubmit } = useForm<Auth.Login.FormData>({
@@ -26,8 +35,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
     onSubmitForm(data, setIsSubmitting)
   })
 
+  const onClickSignUp = useCallback(() => {
+    router.push('/signup')
+  }, [])
+
   return (
-    <Box hasPadding>
+    <Box hasBorder hasPadding>
       <form className="flex flex-col gap-6" onSubmit={onSubmit}>
         <div className="flex flex-col gap-1">
           <Label htmlFor="email">Email</Label>
@@ -52,7 +65,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
             Login
           </Button>
 
-          <Button variant="ghost" type="button" disabled>
+          <Button variant="ghost" type="button" onClick={onClickSignUp}>
             Sign-up
           </Button>
         </div>
