@@ -1,4 +1,5 @@
 import { LoginFormData } from '@/features/Auth/utils/loginFormSchema'
+import { SignupFormData } from '@/features/Auth/utils/signupFormSchema'
 
 /**
  * The response of the login request
@@ -26,6 +27,26 @@ type LoginResult = PlayFab.Response<{
   treatmentAssignment: unknown[]
 }>
 
+type SignupResult = PlayFab.Response<{
+  EntityToken: {
+    EntityToken: string
+    TokenExpiration: Date
+    Entity: {
+      Id: string
+      Type: string
+      TypeString: string
+    }
+  }
+  PlayFabId: string
+  SessionTicket: string
+  SettingsForUser: {
+    NeedsAttribution: boolean
+    GatherDeviceInfo: boolean
+    GatherFocusInfo: boolean
+  }
+  Username: string
+}>
+
 declare global {
   declare namespace Auth {
     namespace Login {
@@ -41,6 +62,21 @@ declare global {
        * Response of loginWithEmailAddress
        */
       type Result = LoginResult
+    }
+
+    namespace Signup {
+      /**
+       * Form data for signup
+       */
+      type FormData = SignupFormData
+      /**
+       * Payload for registerPlayFabUser
+       */
+      type Payload = SignupFormData & { Username: string; titleId: string }
+      /**
+       * Response of registerPlayFabUser
+       */
+      type Result = SignupResult
     }
   }
 }
