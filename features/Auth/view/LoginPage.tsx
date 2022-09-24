@@ -1,18 +1,38 @@
 import Layout from '@/components/Layout'
-import LoginForm from '@/features/Auth/components/LoginForm'
+import LoginForm, { LoginFormProps } from '@/features/Auth/components/LoginForm'
+import useEnv from '@/hooks/useEnv'
 import useAuthService from '../service/useAuthService'
 
 export default function LoginPage() {
   // get the login function from the auth service
-  const { login } = useAuthService()
+  const { loginWithEmailAddress } = useAuthService()
+  const { titleId } = useEnv()
 
-  const handleFormSubmit = (formData: { email: string; password: string }) => {
-    login(formData)
+  const handleFormSubmit: LoginFormProps['onSubmitForm'] = async (
+    formData,
+    setIsSubmitting,
+  ) => {
+    try {
+      const { data } = await loginWithEmailAddress({ ...formData, titleId })
+
+      /**
+       * save the auth token in the local storage
+       */
+      localStorage.setItem('SessionTicket', data.SessionTicket)
+
+      /**
+       * TODO: redirect to the home page
+       */
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <Layout>
-      <LoginForm onFormSubmit={handleFormSubmit} />
+      <LoginForm onSubmitForm={handleFormSubmit} />
     </Layout>
   )
 }

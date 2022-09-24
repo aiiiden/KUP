@@ -1,35 +1,29 @@
-import { ComponentProps, useState } from 'react'
-import useAuthValidation from '../utils/useAuthValidation'
+import { ComponentProps, Dispatch, SetStateAction, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import loginSchema from '@/features/Auth/utils/loginFormSchema'
 
-interface LoginFormProps extends ComponentProps<'div'> {
-  onFormSubmit: (formData: Auth.Login.FormData) => void
+export interface LoginFormProps extends ComponentProps<'div'> {
+  onSubmitForm: (
+    formData: Auth.Login.FormData,
+    setIsSubmitting: Dispatch<SetStateAction<boolean>>,
+  ) => void
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onFormSubmit }) => {
-  // form state
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // use validation hook
-  const { isLoginFormStateValid } = useAuthValidation()
+  const { register, handleSubmit } = useForm<Auth.Login.FormData>({
+    resolver: yupResolver(loginSchema),
+  })
 
-  // form submit handler
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (
-      await isLoginFormStateValid({
-        email,
-        password,
-      })
-    ) {
-      onFormSubmit({ email, password })
-    } else {
-      alert('Invalid form state')
-    }
-  }
+  const onSubmit = handleSubmit((data) => {
+    setIsSubmitting(true)
+    onSubmitForm(data, setIsSubmitting)
+  })
 
   return (
-    <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-6" onSubmit={onSubmit}>
       <div className="flex flex-col gap-1">
         <label htmlFor="email" className="text-sm text-gray-400 font-medium">
           Email
@@ -37,10 +31,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onFormSubmit }) => {
         <input
           autoComplete="email"
           className="border border-gray-300 rounded-sm px-2 py-1"
-          type="email"
-          name="email"
+          type="text"
           id="email"
-          onChange={(e) => setEmail(e.target.value)}
+          {...register('Email')}
         />
       </div>
       <div className="flex flex-col gap-1 ">
@@ -51,13 +44,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onFormSubmit }) => {
           autoComplete="current-password"
           className="border border-gray-300 rounded-sm px-2 py-1"
           type="password"
-          name="password"
           id="password"
-          onChange={(e) => setPassword(e.target.value)}
+          {...register('Password')}
         />
       </div>
       <div className="flex flex-col gap-2">
-        <button className="bg-pink-400 text-white p-1 rounded" type="submit">
+        <button
+          className="bg-pink-400 text-white p-1 rounded disabled:bg-pink-200"
+          type="submit"
+          disabled={isSubmitting}
+        >
           Login
         </button>
         <button
