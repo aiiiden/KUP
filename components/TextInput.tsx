@@ -1,15 +1,21 @@
-import { ComponentProps } from 'react'
+import type { ComponentPropsWithRef } from 'react'
+import React from 'react'
 
-export interface TextInputProps extends ComponentProps<'input'> {}
+export interface TextInputProps extends ComponentPropsWithRef<'input'> {}
 
-const TextInput: React.FC<TextInputProps> = ({ type, ...rest }) => {
-  return (
-    <input
-      type={type || 'text'}
-      className="border border-gray-300 rounded-sm px-2 py-1"
-      {...rest}
-    />
-  )
-}
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+  ({ type, ...rest }, ref) => {
+    return (
+      <input
+        ref={ref}
+        type={type || 'text'}
+        className="border border-gray-300 rounded-sm px-2 py-1"
+        {...rest}
+      />
+    )
+  },
+)
+
+TextInput.displayName = 'TextInput'
 
 export default TextInput
