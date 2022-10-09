@@ -1,10 +1,11 @@
 import { PropsWithChildren } from 'react'
-import Box from './Box'
+import NavBar from './Navbar'
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="bg-gray-100 w-full min-h-screen flex-center">
-      {children}
+    <div>
+      <NavBar />
+      <div>{children}</div>
     </div>
   )
 }
