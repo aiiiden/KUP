@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import useModal from '@/hooks/useModal'
+import LoginForm from '@/features/Auth/components/LoginForm'
+import useModalStore from '@/store/useModalStore'
 import React from 'react'
-import Modal from './Modal'
-import ModalPortal from './ModalPortal'
 import { NoSSR } from './NoSSR'
 
 const NavBar: React.FC = () => {
-  const { modalOpen, openModal, closeModal } = useModal()
+  const { openModal } = useModalStore()
 
   return (
     <NoSSR>
@@ -38,7 +37,12 @@ const NavBar: React.FC = () => {
             </ul>
             <button
               className="w-[180px] h-[50px] bg-orange rounded flex-center"
-              onClick={openModal}
+              onClick={() =>
+                openModal({
+                  title: 'Sign In',
+                  component: <LoginForm />,
+                })
+              }
             >
               <span className="text-white text-base font-bold">
                 wallet connect
@@ -46,10 +50,6 @@ const NavBar: React.FC = () => {
             </button>
           </div>
         </div>
-
-        <ModalPortal>
-          {modalOpen && <Modal title="Wallet" onClose={closeModal} />}
-        </ModalPortal>
       </nav>
     </NoSSR>
   )

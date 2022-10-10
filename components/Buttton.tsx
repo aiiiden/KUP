@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const variantClasses = {
-    primary: 'bg-blue-600 hover:bg-blue-500 text-white',
+    primary: 'bg-orange text-white',
     secondary: 'bg-gray-300 text-gray-500',
     ghost: 'bg-white hover:bg-gray-100 text-gray-400',
   }
@@ -33,7 +33,8 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={clsx([
-        'rounded p-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed',
+        'w-full h-10 flex justify-center items-center',
+        'rounded disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed',
         variantClasses[variant],
         loading && 'animate-pulse cursor-wait',
       ])}
