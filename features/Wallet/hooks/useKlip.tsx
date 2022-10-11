@@ -5,6 +5,7 @@ export default function useKlip() {
   const [klip, setKlip] = useState<any>(null)
   const [requestKey, setRequestKey] = useState<string | null>(null)
   const [isSupported, setIsSupported] = useState<boolean>(true)
+  const [selectedAddress, setSelectedAddress] = useState<string | null>(null)
   const bappName = 'KUP'
 
   const LoadKlipScript = () => {
@@ -32,9 +33,23 @@ export default function useKlip() {
       setIsSupported(false)
       return
     }
-    const a = klip.request(requestKey, () => setIsSupported(false))
-    alert(a)
+    klip.request(requestKey, () => setIsSupported(false), true)
+
+    // interval until status is changed
+    const interval = setInterval(async () => {
+      const { status, result } = await klip.getResult(requestKey)
+      if (status === 'completed') {
+        setSelectedAddress(result['klaytn_address'])
+        clearInterval(interval)
+      }
+    }, 500)
   }
 
-  return { isKlipSupported: isSupported, LoadKlipScript, requestKey, loginKlip }
+  return {
+    isKlipSupported: isSupported,
+    selectedAddress,
+    LoadKlipScript,
+    requestKey,
+    loginKlip,
+  }
 }

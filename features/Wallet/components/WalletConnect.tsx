@@ -38,7 +38,12 @@ const WalletConnect: React.FC = () => {
     selectedAddress: kaikasWalletAddress,
     loginKaikas,
   } = useKaikas()
-  const { isKlipSupported, LoadKlipScript, loginKlip } = useKlip()
+  const {
+    isKlipSupported,
+    selectedAddress: klipWalletAddress,
+    LoadKlipScript,
+    loginKlip,
+  } = useKlip()
   const {
     isMetaMaskSupported,
     loginMetaMask,
@@ -68,14 +73,18 @@ const WalletConnect: React.FC = () => {
     }
 
     if (selectedWalletType === WalletType.Klip) {
-      // TODO: Klip Wallet Address
-      return null
+      return klipWalletAddress
     }
 
     if (selectedWalletType === WalletType.MetaMask) {
       return mataMaskWalletAddress
     }
-  }, [selectedWalletType, kaikasWalletAddress, mataMaskWalletAddress])
+  }, [
+    selectedWalletType,
+    kaikasWalletAddress,
+    mataMaskWalletAddress,
+    klipWalletAddress,
+  ])
 
   return (
     <>
