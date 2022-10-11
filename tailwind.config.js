@@ -12,11 +12,11 @@ module.exports = {
     extend: {
       height: {
         'nav-h': '100px',
-        'nav-mobile': '50px',
+        'nav-mobile': '80px',
       },
       padding: {
         'nav-h': '100px',
-        'nav-mobile': '50px',
+        'nav-mobile': '80px',
       },
       colors: {
         main: {
