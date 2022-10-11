@@ -8,14 +8,14 @@ import { useState } from 'react'
  * The TestContract is deployed on the Klaytn Testnet
  *
  */
-export default function useTestContract(provider: Klaytn | null) {
+export default function useTestContract(isKaikasSupported: boolean) {
   const [boxValue, setBoxValue] = useState<number | null>(null)
 
   const abi = require('../abi/test.json')
   const deployedContractAddress = '0xe6703229cffb888e3be09b8cd923c8208bd0a37c'
 
   const retrieve = async () => {
-    if (!provider) throw new Error('Provider is not set')
+    if (!isKaikasSupported) throw new Error('Provider is not set')
     if (!window?.caver) throw new Error('Caver is not set')
 
     /**

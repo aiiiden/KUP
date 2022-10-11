@@ -6,9 +6,11 @@ declare global {
     klaytn?: Klaytn
     caver?: AbstractCaver
     klipSDK?: any
+    ethereum?: any
   }
 }
 
 export const klaytn = window.klaytn
 export const caver = window.caver
 export const klipSDK = window.klipSDK
+export const ethereum = window.ethereum

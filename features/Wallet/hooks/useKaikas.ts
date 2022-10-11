@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function useKlaytn() {
+export default function useKaikas() {
   const [provider, setProvider] = useState<Klaytn | null>(null)
   const [connected, setConnected] = useState<boolean>(false)
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null)
@@ -39,7 +39,7 @@ export default function useKlaytn() {
   }
 
   return {
-    provider,
+    isKaikasSupported: !!provider,
     selectedAddress,
     connected,
     loginKaikas,

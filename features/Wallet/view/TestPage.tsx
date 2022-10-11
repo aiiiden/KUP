@@ -1,12 +1,13 @@
 import useTestContract from '../hooks/useTestContract'
-import useKlaytn from '../hooks/useKlaytn'
+import useKaikas from '../hooks/useKaikas'
 import { useEffect } from 'react'
 import useKlip from '../hooks/useKlip'
 
 export default function TestPage() {
-  const { provider, selectedAddress, loginKaikas, connected } = useKlaytn()
+  const { isKaikasSupported, selectedAddress, loginKaikas, connected } =
+    useKaikas()
   const { deployedContractAddress, boxValue, retrieve } =
-    useTestContract(provider)
+    useTestContract(isKaikasSupported)
   const { LoadKlipScript, requestKey, loginKlip } = useKlip()
 
   useEffect(() => {

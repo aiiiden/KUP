@@ -2,7 +2,7 @@ import { ComponentProps, useCallback } from 'react'
 import clsx from 'clsx'
 
 interface ButtonProps extends ComponentProps<'button'> {
-  variant?: 'primary' | 'secondary' | 'ghost'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'gray'
   loading?: boolean
 }
 const Button: React.FC<ButtonProps> = ({
@@ -10,11 +10,13 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   onClick,
   children,
+  className,
   ...rest
 }) => {
   const variantClasses = {
     primary: 'bg-orange text-white',
-    secondary: 'bg-gray-300 text-gray-500',
+    secondary: 'bg-main-default text-white',
+    gray: 'bg-main-lightest',
     ghost: 'bg-white hover:bg-gray-100 text-gray-400',
   }
 
@@ -33,15 +35,15 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={clsx([
-        'w-full h-10 flex justify-center items-center',
-        'rounded disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed',
         variantClasses[variant],
+        'w-full h-10 flex justify-center items-center rounded disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed font-medium',
         loading && 'animate-pulse cursor-wait',
+        className,
       ])}
       onClick={handleClick}
       {...rest}
     >
-      <div>{children}</div>
+      {children}
     </button>
   )
 }

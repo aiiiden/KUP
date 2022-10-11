@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 export default function useKlip() {
   const [klip, setKlip] = useState<any>(null)
   const [requestKey, setRequestKey] = useState<string | null>(null)
+  const [isSupported, setIsSupported] = useState<boolean>(true)
   const bappName = 'KUP'
 
   const LoadKlipScript = () => {
@@ -27,10 +28,13 @@ export default function useKlip() {
   }, [klip])
 
   const loginKlip = async () => {
-    // if (!requestKey) return
-
-    klip.request(requestKey, () => alert('Klip only supports mobile'))
+    if (!klip) {
+      setIsSupported(false)
+      return
+    }
+    const a = klip.request(requestKey, () => setIsSupported(false))
+    alert(a)
   }
 
-  return { LoadKlipScript, requestKey, loginKlip }
+  return { isKlipSupported: isSupported, LoadKlipScript, requestKey, loginKlip }
 }

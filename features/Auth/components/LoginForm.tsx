@@ -11,9 +11,11 @@ import loginSchema from '@/features/Auth/utils/loginFormSchema'
 import TextInput from '@/components/TextInput'
 import Label from '@/components/Label'
 import Button from '@/components/Buttton'
-import { useRouter } from 'next/router'
 import useModalStore from '@/store/useModalStore'
 import SignupForm from './SignupForm'
+import useEnv from '@/hooks/useEnv'
+import useAuthService from '../service/useAuthService'
+import WalletConnect from '@/features/Wallet/components/WalletConnect'
 
 export interface LoginFormProps extends ComponentProps<'div'> {
   onSubmitForm?: (
@@ -24,6 +26,8 @@ export interface LoginFormProps extends ComponentProps<'div'> {
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
   const { openModal } = useModalStore()
+  const { titleId } = useEnv()
+  const { loginWithEmailAddress } = useAuthService()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -31,9 +35,28 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
     resolver: yupResolver(loginSchema),
   })
 
-  const onSubmit = handleSubmit((data) => {
-    setIsSubmitting(true)
-    onSubmitForm?.(data, setIsSubmitting)
+  const onSubmit = handleSubmit(async (formData) => {
+    try {
+      const { data } = await loginWithEmailAddress({ ...formData, titleId })
+
+      /**
+       * save the auth token in the local storage
+       */
+      localStorage.setItem('SessionTicket', data.SessionTicket)
+
+      /**
+       * go to wallet connect
+       */
+      openModal({
+        title: 'Wallet',
+        component: <WalletConnect />,
+      })
+    } catch (error) {
+      // TODO: handle error
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
   })
 
   const onClickSignUp = useCallback(() => {

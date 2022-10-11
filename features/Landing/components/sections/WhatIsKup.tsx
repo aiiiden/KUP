@@ -18,7 +18,7 @@ VerticalLine.displayName = 'VerticalLine'
 
 const WhatIsKup: React.FC<ComponentProps<'div'>> = () => {
   return (
-    <article className="full-screen pt-nav-h flex-center bg-gradient-to-r from-main-ligtest to-white gap-[225px]">
+    <article className="full-screen pt-nav-h flex-center bg-gradient-to-r from-main-lightest to-white gap-[225px]">
       <div className="flex flex-col gap-2.5 items-center">
         <figure className="w-full">
           <img
