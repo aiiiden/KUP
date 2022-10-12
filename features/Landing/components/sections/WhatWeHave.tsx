@@ -4,7 +4,8 @@ import { ComponentProps } from 'react'
 
 const WhatWeHave: React.FC<ComponentProps<'div'>> = () => {
   return (
-    <div
+    <article
+      id="wehave"
       className={clsx([
         `full-screen flex-center relative bg-yellow gap-12 lg:gap-24`,
         `flex-col lg:flex-row`,
@@ -55,7 +56,7 @@ const WhatWeHave: React.FC<ComponentProps<'div'>> = () => {
           height={63}
         />
       </div>
-    </div>
+    </article>
   )
 }
 

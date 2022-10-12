@@ -1,6 +1,4 @@
-import useEnv from '@/hooks/useEnv'
 import Requester from '@/utils/requester'
-import { useState } from 'react'
 
 /**
  * Hook for Authentication with API call

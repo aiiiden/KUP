@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import useMetaMask from '../hooks/useMetaMask'
 import useModalStore from '@/store/useModalStore'
 import LoginForm from '@/features/Auth/components/LoginForm'
+import ContractInteract from './ContractIntract'
 
 enum WalletType {
   MetaMask = 'MetaMask',
@@ -85,6 +86,18 @@ const WalletConnect: React.FC = () => {
     mataMaskWalletAddress,
     klipWalletAddress,
   ])
+
+  useEffect(() => {
+    const address = confirmedWalletAddress()
+    if (address) {
+      setTimeout(() => {
+        openModal({
+          title: 'Contract',
+          component: <ContractInteract address={confirmedWalletAddress()} />,
+        })
+      }, 1500)
+    }
+  }, [confirmedWalletAddress])
 
   return (
     <>
@@ -194,21 +207,23 @@ const WalletConnect: React.FC = () => {
             </>
           )}
         </div>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            if (confirmedWalletAddress()) {
-              setSelectedWalletType(null)
-            } else {
-              openModal({
-                title: 'Sign in',
-                component: <LoginForm />,
-              })
-            }
-          }}
-        >
-          Go Back
-        </Button>
+        {!confirmedWalletAddress() && (
+          <Button
+            variant="secondary"
+            onClick={() => {
+              if (confirmedWalletAddress()) {
+                setSelectedWalletType(null)
+              } else {
+                openModal({
+                  title: 'Sign in',
+                  component: <LoginForm />,
+                })
+              }
+            }}
+          >
+            Go Back
+          </Button>
+        )}
       </div>
     </>
   )

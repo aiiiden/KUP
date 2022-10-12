@@ -14,28 +14,6 @@ import WhyKup from '../components/sections/WhyKup'
 
 const Landing: React.FC = () => {
   const { modal, closeModal } = useModalStore()
-  //   useEffect(() => {
-  //     async function getExampleImage() {
-  //       const imageOriginUrl =
-  //         'https://arweave.net/wglIV7K_YGwUpbFK5mxE-Jtnb3iimAsYFCLwtOMMzCg?ext=png'
-  //       const r = await fetch(imageOriginUrl)
-  //       if (!r.ok) {
-  //         throw new Error(`error fetching image: [${r.status}]`)
-  //       }
-  //       return r.blob()
-  //     }
-
-  //     async function storeExampleNFT() {
-  //       const imageBlob = await getExampleImage()
-
-  //       axios.post<PostPayload>('/api/contract/metadata', {
-  //         imageBlob,
-  //         attackCount: 1,
-  //       })
-  //     }
-
-  //     storeExampleNFT()
-  //   }, [])
 
   return (
     <NoSSR>

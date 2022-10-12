@@ -20,8 +20,9 @@ VerticalLine.displayName = 'VerticalLine'
 const WhatIsKup: React.FC<ComponentProps<'div'>> = () => {
   return (
     <article
+      id="whatiskup"
       className={clsx([
-        'full-screen flex-center bg-gradient-to-r from-main-lightest to-white',
+        'full-screen flex-center bg-main-lightest',
         'flex-col pt-nav-mobile gap-16 px-4',
         'lg:flex-row lg:pt-nav-h lg:gap-[225px]',
       ])}

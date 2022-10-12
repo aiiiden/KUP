@@ -2,31 +2,24 @@ import Box from '@/components/Box'
 import Button from '@/components/Buttton'
 import Label from '@/components/Label'
 import TextInput from '@/components/TextInput'
+import useEnv from '@/hooks/useEnv'
 import useModalStore from '@/store/useModalStore'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ComponentProps, Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import useAuthService from '../service/useAuthService'
 import signupSchema from '../utils/signupFormSchema'
 import LoginForm from './LoginForm'
 
-export interface SignupFormProps extends ComponentProps<'div'> {
-  onSubmitForm?: (
-    formData: Auth.Signup.FormData,
-    setIsSubmitting: Dispatch<SetStateAction<boolean>>,
-  ) => void
-}
-
-const SignupForm: React.FC<SignupFormProps> = ({ onSubmitForm }) => {
+const SignupForm: React.FC = () => {
   const { openModal } = useModalStore()
+  const { titleId } = useEnv()
+  const { registerPlayFabUser } = useAuthService()
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const { register, handleSubmit } = useForm<Auth.Signup.FormData>({
     resolver: yupResolver(signupSchema),
-  })
-
-  const onSubmit = handleSubmit((data) => {
-    setIsSubmitting(true)
-    onSubmitForm?.(data, setIsSubmitting)
   })
 
   const handleClickSignin = () => {
@@ -35,6 +28,27 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmitForm }) => {
       component: <LoginForm />,
     })
   }
+
+  const onSubmit = handleSubmit(async (formData) => {
+    setIsSubmitting(true)
+    try {
+      const { data } = await registerPlayFabUser({
+        ...formData,
+        Username: formData.DisplayName,
+        titleId,
+      })
+
+      if (data.SessionTicket) {
+        localStorage.setItem('SessionTicket', data.SessionTicket)
+      }
+
+      handleClickSignin()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  })
 
   return (
     <form className="flex flex-col gap-6" onSubmit={onSubmit}>
@@ -51,8 +65,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSubmitForm }) => {
         <TextInput type="text" id="name" {...register('DisplayName')} />
       </div>
       <div className="flex flex-col gap-2">
-        <Button type="submit">Submit</Button>
-        <Button type="button" variant="ghost" onClick={handleClickSignin}>
+        <Button type="submit" loading={isSubmitting}>
+          Submit
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={handleClickSignin}
+          loading={isSubmitting}
+        >
           Sign in
         </Button>
       </div>

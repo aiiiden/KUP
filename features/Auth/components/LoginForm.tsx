@@ -15,7 +15,7 @@ import useModalStore from '@/store/useModalStore'
 import SignupForm from './SignupForm'
 import useEnv from '@/hooks/useEnv'
 import useAuthService from '../service/useAuthService'
-import WalletConnect from '@/features/Wallet/components/WalletConnect'
+import WalletConnect from '@/features/Contract/components/WalletConnect'
 
 export interface LoginFormProps extends ComponentProps<'div'> {
   onSubmitForm?: (
@@ -36,6 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmitForm }) => {
   })
 
   const onSubmit = handleSubmit(async (formData) => {
+    setIsSubmitting(true)
     try {
       const { data } = await loginWithEmailAddress({ ...formData, titleId })
 

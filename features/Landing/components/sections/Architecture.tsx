@@ -4,7 +4,8 @@ import { ComponentProps } from 'react'
 
 const Architecture: React.FC<ComponentProps<'div'>> = () => {
   return (
-    <div
+    <article
+      id="contract"
       className={clsx([
         `flex items-end lg:items-center justify-center gap-12 lg:justify-between full-screen relative bg-orange`,
         `flex-col lg:flex-row`,
@@ -55,7 +56,7 @@ const Architecture: React.FC<ComponentProps<'div'>> = () => {
           className="mt-4 lg:mt-[74px] w-[102px] lg:w-[205px] lg:h-[160px]"
         />
       </div>
-    </div>
+    </article>
   )
 }
 export default Architecture

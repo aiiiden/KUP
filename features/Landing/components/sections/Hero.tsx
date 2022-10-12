@@ -5,6 +5,7 @@ import React, { ComponentProps } from 'react'
 const Hero: React.FC<ComponentProps<'header'>> = () => {
   return (
     <header
+      id="hero"
       className={clsx([
         'full-screen flex-center bg-gradient-to-r from-main-lightest to-white',
         'px-4 flex-col gap-[70px] pt-nav-mobile',

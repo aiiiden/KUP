@@ -2,9 +2,10 @@
 import clsx from 'clsx'
 import { ComponentProps } from 'react'
 
-const WhyKup: React.FC<ComponentProps<'div'>> = () => {
+const WhyKup: React.FC<ComponentProps<'article'>> = () => {
   return (
-    <div
+    <article
+      id="whykup"
       className={clsx([
         `flex-center full-screen bg-main-default gap-10 lg:gap-20`,
         `px-4 flex-col lg:flex-row pt-nav-mobile lg:pt-nav-h`,
@@ -65,7 +66,7 @@ const WhyKup: React.FC<ComponentProps<'div'>> = () => {
           className="absolute bottom-0 right-0 z-0 animate-buoyancy-1 w-[190px] lg:w-[380px] lg:h-[148px]"
         />
       </div>
-    </div>
+    </article>
   )
 }
 
