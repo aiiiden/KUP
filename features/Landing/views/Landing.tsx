@@ -1,10 +1,11 @@
+import Head from 'next/head'
+
 import Layout from '@/components/Layout'
 import Modal from '@/components/Modal'
 import ModalPortal from '@/components/ModalPortal'
 import { NoSSR } from '@/components/NoSSR'
 import useModalStore from '@/store/useModalStore'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import Architecture from '../components/sections/Architecture'
 import Hero from '../components/sections/Hero'
@@ -17,6 +18,9 @@ const Landing: React.FC = () => {
 
   return (
     <NoSSR>
+      <Head>
+        <title>KUP</title>
+      </Head>
       <Layout>
         <Hero />
         <WhatIsKup />
