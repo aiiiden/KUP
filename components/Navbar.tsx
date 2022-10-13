@@ -43,6 +43,11 @@ const NavBar: React.FC = () => {
                   We have
                 </a>
               </li>
+              <li>
+                <a className="hover:underline" href="#play">
+                  Play
+                </a>
+              </li>
             </ul>
             <button
               className="px-4 lg:w-[180px] h-[50px] bg-orange rounded flex-center"
