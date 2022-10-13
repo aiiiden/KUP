@@ -73,6 +73,8 @@ const WhatIsKup: React.FC<ComponentProps<'div'>> = () => {
         <p className="text-sm lg:text-base font-normal leading-5">
           KUP stands for Klaytn, Unity, and Playfab.
           <br />
+          Klaytn is a metaverse platform solution. Unity is a 3D/2D game engine. And Playfab is a backend platform for live games, also a part of Microsoft.
+          <br />
           it is a connection between Unity, Playfab and Klaytn to manage data
           while interacting within the metaverse. The partnership secures the
           users data ownership and preservation by processing important data
