@@ -12,7 +12,7 @@ const Architecture: React.FC<ComponentProps<'div'>> = () => {
         `pt-nav-mobile lg:pt-nav-h`,
       ])}
     >
-      <picture className="mx-auto lg:ml-32 order-2 lg:order-1">
+      <picture className="mx-auto lg:translate-x-0 xl:translate-x-1/2 order-2 lg:order-1">
         <source
           media="(min-width: 768px)"
           srcSet="/landing/architecture.png"
@@ -32,7 +32,7 @@ const Architecture: React.FC<ComponentProps<'div'>> = () => {
           height={232}
         />
       </picture>
-      <div className="w-[200px] lg:w-72 lg:h-[85vh] lg:mr-[109px] mr-12  flex flex-col items-start relative lg:order-1">
+      <div className="w-[200px] lg:w-72 lg:h-[85vh] lg:mr-[109px] mr-12 flex flex-col items-start relative lg:order-1">
         <img
           src="/landing/contract-path.svg"
           alt="contract-path"
