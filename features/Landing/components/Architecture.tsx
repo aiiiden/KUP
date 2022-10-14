@@ -12,7 +12,7 @@ const Architecture: React.FC<ComponentProps<'div'>> = () => {
         `pt-nav-mobile lg:pt-nav-h`,
       ])}
     >
-      <picture className="mx-auto lg:translate-x-0 xl:translate-x-1/2 order-2 lg:order-1">
+      <picture className="mx-auto order-2 lg:order-1">
         <source
           media="(min-width: 768px)"
           srcSet="/landing/architecture.png"
