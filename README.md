@@ -1,4 +1,4 @@
-# KlayMakers Backendless
+# KUP
 
 This repo is template repo for main project.
 
