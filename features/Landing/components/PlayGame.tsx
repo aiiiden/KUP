@@ -59,7 +59,7 @@ const PlayGame = () => {
               <a
                 rel="noopener noreferrer"
                 className="flex gap-2 rounded p-2 bg-main-default"
-                href="https://kup.fra1.digitaloceanspaces.com/win/unity-39-develop-chop-chop-kup-main-win-7.zip"
+                href="https://kup.fra1.digitaloceanspaces.com/mac/unity-39-develop-chop-chop-kup-main-mac-7.zip"
               >
                 <img
                   src="/landing/icon-mac.svg"

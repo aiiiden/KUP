@@ -6,6 +6,7 @@ import useKaikas from '../hooks/useKaikas'
 import useKlip from '../hooks/useKlip'
 import clsx from 'clsx'
 import useMetaMask from '../hooks/useMetaMask'
+import useCoinbase from '../hooks/useCoinbase'
 import useModalStore from '@/store/useModalStore'
 import LoginForm from '@/features/Auth/components/LoginForm'
 import ContractInteract from './ContractIntract'
@@ -14,6 +15,7 @@ enum WalletType {
   MetaMask = 'MetaMask',
   Kaikas = 'Kaikas',
   Klip = 'Klip',
+  Coinbase = 'Coinbase'
 }
 
 const WalletConnect: React.FC = () => {
@@ -50,6 +52,11 @@ const WalletConnect: React.FC = () => {
     loginMetaMask,
     selectedAddress: mataMaskWalletAddress,
   } = useMetaMask()
+  const {
+    isCoinbaseSupported,
+    loginCoinbase,
+    selectedAddress: coinbaseWalletAddress,
+  } = useCoinbase()
 
   /**
    * Header UI
@@ -80,11 +87,16 @@ const WalletConnect: React.FC = () => {
     if (selectedWalletType === WalletType.MetaMask) {
       return mataMaskWalletAddress
     }
+
+    if (selectedWalletType === WalletType.Coinbase) {
+      return coinbaseWalletAddress
+    }
   }, [
     selectedWalletType,
     kaikasWalletAddress,
     mataMaskWalletAddress,
     klipWalletAddress,
+    coinbaseWalletAddress
   ])
 
   useEffect(() => {
@@ -200,6 +212,34 @@ const WalletConnect: React.FC = () => {
                   {!isKlipSupported && (
                     <p className="text-xs text-tequila-light">
                       Klip is only supported on mobile
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <Button
+                    variant="gray"
+                    className={clsx([
+                      `font-normal gap-2`,
+                      !isCoinbaseSupported &&
+                        'border border-tequila-light cursor-not-allowed grayscale',
+                    ])}
+                    onClick={() => {
+                      setSelectedWalletType(WalletType.Coinbase)
+                      loginCoinbase()
+                    }}
+                  >
+                    <img
+                      src="/wallets/coinbase.png"
+                      width={20}
+                      height={20}
+                      alt="coinbase"
+                    />
+                    <span className="w-20">Coinbase</span>
+                  </Button>
+                  {!isCoinbaseSupported && (
+                    <p className="text-xs text-tequila-light">
+                      Coinbase wallet is not installed.
                     </p>
                   )}
                 </div>
