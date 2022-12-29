@@ -50,7 +50,7 @@ const WhatIsKup: React.FC<ComponentProps<'div'>> = () => {
               alt="Klaytn"
               width={130}
               height={40}
-              className="h-6 w-auto lg:h-[45px]"
+              className="h-6 w-auto lg:h-[40px]"
             />
           </figure>
 
@@ -62,7 +62,7 @@ const WhatIsKup: React.FC<ComponentProps<'div'>> = () => {
               alt="Unity"
               width={110}
               height={40}
-              className="h-6 w-auto lg:h-[50px] m-auto"
+              className="h-6 w-auto lg:h-[40px] m-auto"
             />
           </figure>
 
@@ -74,7 +74,7 @@ const WhatIsKup: React.FC<ComponentProps<'div'>> = () => {
               alt="Unity"
               width={135}
               height={40}
-              className="h-6 w-auto lg:h-[50px]"
+              className="h-6 w-auto lg:h-[40px]"
             />
           </figure>
         </div>
